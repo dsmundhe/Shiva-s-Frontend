@@ -23,6 +23,7 @@ const StudentProfileModal = ({ user, onClose }) => {
   const [editMonthDate, setMonthDate] = useState(user?.monthDate || "");
   const [deleteLoader, setDeleteLoader] = useState(false);
   const [editLoader, setEditLoader] = useState(false);
+  const [messType, setMessType] = useState();
 
   // Admin details
   const admin = JSON.parse(localStorage.getItem("user"));
@@ -138,6 +139,7 @@ const StudentProfileModal = ({ user, onClose }) => {
           adminEmail: adminEmail,
           userEmail: userEmail,
           newEmail: editEmail,
+          messType: messType,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -288,42 +290,52 @@ const StudentProfileModal = ({ user, onClose }) => {
           <div>
             <strong>Month Date:</strong> {formatToDayMonth(user?.monthDate)}
           </div>
+          <div>
+            <span
+              className={`px-5 mt-10 py-1 rounded-full text-xs font-semibold ${
+                user.messType === "Veg"
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
+              }`}
+            >
+              {user.messType}
+            </span>
+          </div>
         </div>
 
         {/* Payment Form */}
-        {daysPassed >= 25 && (
-          <form className="space-y-3 mt-5" onSubmit={(e) => e.preventDefault()}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input
-                type="text"
-                placeholder="Payment Amount"
-                value={payment}
-                onChange={(e) => setPayment(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#d9232d] text-sm"
-                required
-              />
-              <input
-                type="date"
-                value={paymentDate}
-                onChange={(e) => setPaymentDate(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#d9232d] text-sm"
-                required
-              />
-            </div>
-            {!isLoading ? (
-              <button
-                onClick={handlePayment}
-                className="w-full bg-[#d9232d] text-white font-semibold py-2 rounded hover:bg-[#b81e26] transition"
-              >
-                Make Payment
-              </button>
-            ) : (
-              <>
-                <Loader />
-              </>
-            )}
-          </form>
-        )}
+
+        <form className="space-y-3 mt-5" onSubmit={(e) => e.preventDefault()}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <input
+              type="text"
+              placeholder="Payment Amount"
+              value={payment}
+              onChange={(e) => setPayment(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#d9232d] text-sm"
+              required
+            />
+            <input
+              type="date"
+              value={paymentDate}
+              onChange={(e) => setPaymentDate(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#d9232d] text-sm"
+              required
+            />
+          </div>
+          {!isLoading ? (
+            <button
+              onClick={handlePayment}
+              className="w-full bg-[#d9232d] text-white font-semibold py-2 rounded hover:bg-[#b81e26] transition"
+            >
+              Make Payment
+            </button>
+          ) : (
+            <>
+              <Loader />
+            </>
+          )}
+        </form>
 
         {/* Payment History */}
         <div className="mt-6 max-h-64 overflow-y-auto border border-gray-200 rounded p-3">
@@ -392,6 +404,20 @@ const StudentProfileModal = ({ user, onClose }) => {
                     className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-[#862627]"
                     required
                   />
+                </div>
+
+                <div className="bg-white p-1 rounded-lg border border-gray-300">
+                  <select
+                    className="w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d9232d] bg-transparent text-gray-500 cursor-pointer"
+                    required
+                    onChange={(e) => setMessType(e.target.value)}
+                  >
+                    <option value="" disabled selected>
+                      Select Mess Type
+                    </option>
+                    <option value="Veg">Veg</option>
+                    <option value="Non Veg">Non Veg</option>
+                  </select>
                 </div>
 
                 <div className="flex justify-end gap-3 pt-4">

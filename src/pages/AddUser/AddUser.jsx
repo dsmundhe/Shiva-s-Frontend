@@ -16,6 +16,7 @@ const AddUser = () => {
   const [phone, setPhone] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [monthDate, setMonthDate] = useState();
+  const [messType, setMessType] = useState();
 
   const navigate = useNavigate();
 
@@ -60,8 +61,8 @@ const AddUser = () => {
             <td style="padding: 8px 0;">${phone}</td>
           </tr>
           <tr>
-            <td style="padding: 8px 0;"><strong>Payment Status:</strong></td>
-            <td style="padding: 8px 0;">${payment}</td>
+            <td style="padding: 8px 0;"><strong>Mess Type</strong></td>
+            <td style="padding: 8px 0;">${messType}</td>
           </tr>
           <tr style="background-color: #f9f9f9;">
             <td style="padding: 8px 0;"><strong>Active:</strong></td>
@@ -104,10 +105,10 @@ const AddUser = () => {
       if (
         !name ||
         !userEmail ||
-        !payment ||
         !isActive ||
         !startDate ||
-        !phone
+        !phone ||
+        !messType
       ) {
         toast.error("Provide data!");
         setIsLoading(false);
@@ -125,8 +126,8 @@ const AddUser = () => {
           isActive,
           startDate,
           mobile: phone,
-          payment,
           monthDate: monthDate,
+          messType: messType,
         },
         {
           headers: {
@@ -178,7 +179,7 @@ const AddUser = () => {
         <div className="w-full max-w-4xl flex flex-col md:flex-row shadow-lg rounded-lg overflow-hidden bg-white">
           {/* Left Side: Form */}
           <div className="w-full md:w-1/2 bg-[#ecebf2] p-10 flex flex-col justify-center">
-            <h2 className="text-3xl font-bold text-center mb-6">Add User</h2>
+            <h2 className="text-3xl font-bold text-center mb-6">Add Student</h2>
             <form
               className="space-y-4"
               onSubmit={(e) => {
@@ -226,18 +227,6 @@ const AddUser = () => {
 
               <div className="bg-white p-1 rounded-lg border border-gray-300">
                 <input
-                  type="text"
-                  placeholder="Amount"
-                  className="w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d9232d] bg-transparent placeholder-gray-500"
-                  required
-                  name="payment"
-                  onChange={(e) => {
-                    setPayment(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="bg-white p-1 rounded-lg border border-gray-300">
-                <input
                   type="date"
                   className="w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d9232d] bg-transparent text-gray-500 cursor-pointer"
                   required
@@ -245,6 +234,19 @@ const AddUser = () => {
                     setStartDate(e.target.value);
                   }}
                 />
+              </div>
+              <div className="bg-white p-1 rounded-lg border border-gray-300">
+                <select
+                  className="w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d9232d] bg-transparent text-gray-500 cursor-pointer"
+                  required
+                  onChange={(e) => setMessType(e.target.value)}
+                >
+                  <option value="" disabled selected>
+                    Select Mess Type
+                  </option>
+                  <option value="Veg">Veg</option>
+                  <option value="Non Veg">Non Veg</option>
+                </select>
               </div>
 
               {isLoading ? (
@@ -266,7 +268,7 @@ const AddUser = () => {
                     className="w-full mt-2 bg-[#d9232d] text-white font-semibold rounded py-2  hover:bg-[#b81e26] transition"
                     onClick={addUser}
                   >
-                    ADD USER
+                    ADD STUDENT
                   </button>
                 </>
               )}
