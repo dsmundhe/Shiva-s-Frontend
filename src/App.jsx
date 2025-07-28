@@ -8,7 +8,7 @@ import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import AddUser from "./pages/AddUser/AddUser";
 import LandingRoutes from "./routes/LandingRoutes";
-import SendMailForm from "./components/SendMailForm";
+
 import Settings from "./pages/Settings/Settings";
 import EditProfile from "./pages/Profile/EditProfile";
 import NotifyStudents from "./pages/NotifyStudents/NotifyStudents";
@@ -25,7 +25,6 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/addUser" element={<AddUser />} />
-        <Route path="/email" element={<SendMailForm />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/notifyStudents" element={<NotifyStudents />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
