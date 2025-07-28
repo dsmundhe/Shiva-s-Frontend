@@ -23,7 +23,7 @@ const StudentProfileModal = ({ user, onClose }) => {
   const [editMonthDate, setMonthDate] = useState(user?.monthDate || "");
   const [deleteLoader, setDeleteLoader] = useState(false);
   const [editLoader, setEditLoader] = useState(false);
-  const [messType, setMessType] = useState();
+  const [messType, setMessType] = useState(user?.messType || "");
 
   // Admin details
   const admin = JSON.parse(localStorage.getItem("user"));
@@ -406,19 +406,18 @@ const StudentProfileModal = ({ user, onClose }) => {
                   />
                 </div>
 
-                <div className="bg-white p-1 rounded-lg border border-gray-300">
-                  <select
-                    className="w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d9232d] bg-transparent text-gray-500 cursor-pointer"
-                    required
-                    onChange={(e) => setMessType(e.target.value)}
-                  >
-                    <option value="" disabled selected>
-                      Select Mess Type
-                    </option>
-                    <option value="Veg">Veg</option>
-                    <option value="Non Veg">Non Veg</option>
-                  </select>
-                </div>
+                <select
+                  className="w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d9232d] bg-transparent text-gray-500 cursor-pointer"
+                  required
+                  value={messType}
+                  onChange={(e) => setMessType(e.target.value)}
+                >
+                  <option value="" disabled>
+                    Select Mess Type
+                  </option>
+                  <option value="Veg">Veg</option>
+                  <option value="Non Veg">Non Veg</option>
+                </select>
 
                 <div className="flex justify-end gap-3 pt-4">
                   {editLoader ? (
