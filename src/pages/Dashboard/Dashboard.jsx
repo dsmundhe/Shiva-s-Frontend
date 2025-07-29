@@ -49,8 +49,14 @@ const Dashboard = () => {
   };
 
   const getInitials = (name) => {
-    const names = name.split(" ");
-    return names[0][0] + names[1][0];
+    if (!name) return "X"; // Fallback initials
+    const names = name.trim().split(" ").filter(Boolean); // Remove extra spaces
+
+    if (names.length === 1) {
+      return names[0][0].toUpperCase(); // First letter of the single name
+    }
+
+    return (names[0][0] + names[1][0]).toUpperCase(); // First letter of first and second word
   };
 
   const filteredUsers = users.filter((user) =>
