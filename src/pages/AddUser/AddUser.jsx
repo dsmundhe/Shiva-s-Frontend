@@ -115,8 +115,6 @@ const AddUser = () => {
         return;
       }
 
- 
-
       const response = await axios.post(
         `${URI}/admin/adduser`,
         {
@@ -244,13 +242,22 @@ const AddUser = () => {
                 </select>
               </div>
 
-              <button
-                type="submit"
-                className="w-full mt-2 bg-[#d9232d] text-white font-semibold rounded py-2 hover:bg-[#b81e26] transition flex justify-center items-center"
-                disabled={isLoading}
-              >
-                {isLoading ? <Loader2 /> : "ADD STUDENT"}
-              </button>
+              {isLoading ? (
+                <>
+                  <Loader2 />
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <button
+                    type="submit"
+                    className="w-full mt-2 bg-[#d9232d] text-white font-semibold rounded py-2 hover:bg-[#b81e26] transition flex justify-center items-center"
+                    disabled={isLoading}
+                  >
+                    ADD STUDENT
+                  </button>
+                </>
+              )}
             </form>
           </div>
           <ToastContainer />

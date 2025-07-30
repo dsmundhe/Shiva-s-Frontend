@@ -8,8 +8,8 @@ import axios from "axios";
 import Loader2 from "../../Components/Loaders/Loader2/Loader2";
 
 const Login = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,8 +32,15 @@ const Login = () => {
         setIsLoading(false);
         return;
       }
-      await localStorage.setItem("user", JSON.stringify(response.data.user));
-      await localStorage.setItem("token", JSON.stringify(response.data.token));
+      if (response.data.user && response.data.token) {
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        localStorage.setItem("token", JSON.stringify(response.data.token));
+      } else {
+        toast.error("Login failed. Missing user or token.");
+        setIsLoading(false);
+        return;
+      }
+
       toast.success(`${response.data.msg}`);
       navigate("/");
     } catch (error) {
