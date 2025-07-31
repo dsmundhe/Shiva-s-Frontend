@@ -74,7 +74,7 @@ const AddUser = () => {
           </tr>
           <tr style="background-color: #f9f9f9;">
             <td style="padding: 8px 0;"><strong>Registered On:</strong></td>
-            <td style="padding: 8px 0;">${monthDate}</td>
+            <td style="padding: 8px 0;">${startDate}</td>
           </tr>
         </table>
 
